@@ -1,25 +1,40 @@
 defmodule GithubUsersWeb.CardComponent do
   use GithubUsersWeb, :live_component
 
-  attr :userDetails, :map, required: true
+  attr :userDetails, :map,
+    required: false,
+    default: %{
+      "name" => "Default User",
+      "login" => "defaultuser",
+      "created_at" => "2023-01-01T00:00:00Z",
+      "bio" => "This is a default user bio.",
+      "public_repos" => 0,
+      "followers" => 0,
+      "following" => 0,
+      "location" => "Not Available",
+      "twitter_username" => nil,
+      "blog" => "https://www.gitsh",
+      "company" => nil,
+      "avatar_url" => "https://via.placeholder.com/117"
+    }
 
   def card(assigns) do
-    IO.inspect(assigns.userDetails, label: "USERNAME BEING PASSED######")
-
     ~H"""
-    <div class="flex items-start justify-between rounded-[16px] bg-[#FEFEFE] dark:bg-[#1E2A47] px-16 py-20 gap-10">
+    <div class="flex flex-col lg:flex-row items-start justify-between rounded-[16px] bg-[#FEFEFE] dark:bg-[#1E2A47] md:px-16 lg:py-20 gap-10 py-10 w-full relative px-4">
       <img
         src={@userDetails["avatar_url"]}
         alt={@userDetails["name"]}
-        class="rounded-[50%] w-[117px] h-[117px]"
+        class="rounded-[50%] md:w-[117px] md:h-[117px] h-[70px] w-[70px]"
       />
-      <div class="flex flex-col items-start justify-center w-[80%] gap-10">
-        <div class="flex justify-between items-start w-full">
-          <p class="flex flex-col gap-3">
-            <span class="text-[26px] font-bold dark:text-white">{@userDetails["name"]}</span>
+      <div class="flex flex-col lg:items-start lg:justify-center lg:w-[80%] gap-10 w-full">
+        <div class="flex md:gap-2 gap-1 lg:gap-0 flex-col lg:flex-row lg:justify-between items-start top-10 left-28 md:left-60 md:top-12 absolute lg:static lg:w-full">
+          <p class="flex flex-col lg:gap-3 md:gap-2 gap-1">
+            <span class="md:text-[26px] text-[18px] font-bold dark:text-white">
+              {@userDetails["name"]}
+            </span>
             <span class="text-[#0079FF]">@{@userDetails["login"]}</span>
           </p>
-          <p class="text-[#697C9A] text-[15px] dark:text-white">
+          <p class="text-[#697C9A] md:text-[15px] text-[12px] dark:text-white">
             Joined {format_date(@userDetails["created_at"])}
           </p>
         </div>
@@ -56,7 +71,7 @@ defmodule GithubUsersWeb.CardComponent do
             </span>
           </p>
         </div>
-        <div class="w-full grid grid-cols-2 gap-8 text-[15px]">
+        <div class="w-full grid grid-cols-2 gap-8 text-[15px] border">
           <p class="flex items-start justify-start gap-4">
             <.icon name="hero-map-pin-solid" class="w-[20px] h-[20px] bg-[#4B6A9B]" />
             <span class="text-[#4B6A9B] dark:text-[#FFFFFF]">

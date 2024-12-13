@@ -20,9 +20,9 @@ defmodule GithubUsersWeb.UsersLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="flex flex-col gap-5">
+    <div class="flex flex-col gap-5 w-full md:w-[80%] lg:w-[100%] px-4">
       <section class="flex justify-between items-center">
-        <h1 class="font-bold text-[26px] text-[#222731] dark:text-[#FFFFFF]">devfinder</h1>
+        <h1 class="font-bold md:text-[26px] text-[#222731] dark:text-[#FFFFFF]">devfinder</h1>
         <button
           class="flex justify-between items-center gap-4 dark:text-red-700"
           phx-click="toggle_theme"
@@ -40,7 +40,7 @@ defmodule GithubUsersWeb.UsersLive do
       <section class="relative">
         <.icon
           name="hero-magnifying-glass-solid"
-          class="w-[24.06px] h-[24px] bg-[#0079FF] absolute top-9 border left-6"
+          class="w-[24.06px] h-[24px] bg-[#0079FF] absolute top-5 md:top-7 lg:top-9 border left-2 md:left-6"
         />
         <form phx-submit="search">
           <.input
@@ -48,11 +48,14 @@ defmodule GithubUsersWeb.UsersLive do
             name="username"
             placeholder="Search Github username..."
             value={@query}
-            class="rounded-[15px] text-[#4B6A9B] text-[18px] font-[400] leading-[15px] pl-16 shadow-custom bg-[#FEFEFE] py-7 focus:ring-0 focus:outline-none dark:text-[#FFFFFF] dark:bg-[#1E2A47] dark:focus:bg-[#1E2A47]"
+            class="rounded-[15px] text-[#4B6A9B] md:text-[16px] text-[11px] lg:text-[18px] font-[400] leading-[15px] pl-8 md:pl-16 shadow-custom bg-[#FEFEFE] md:py-5 lg:py-7 py-4 focus:ring-0 focus:outline-none dark:text-[#FFFFFF] dark:bg-[#1E2A47] dark:placeholder-white dark:focus:bg-[#1E2A47]"
           />
 
-          <.button type="submit" class="text-[16px] px-[24px] py-[14px] absolute top-[22px] right-2">
-            SEARCH
+          <.button
+            type="submit"
+            class="lg:text-[16px] top-3 text-[12px] md:text-[14px] px-3 md:px-[24px] md:py-[8px] lg:py-[14px] absolute md:top-[17px] lg:top-[22px] right-2"
+          >
+            Search
           </.button>
         </form>
       </section>
@@ -64,6 +67,9 @@ defmodule GithubUsersWeb.UsersLive do
           <.card userDetails={@userDetails} />
         </section>
       <% end %>
+      <section>
+        <.card />
+      </section>
     </div>
     """
   end
