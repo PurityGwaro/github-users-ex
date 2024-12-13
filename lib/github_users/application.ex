@@ -11,12 +11,11 @@ defmodule GithubUsers.Application do
       GithubUsersWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:github_users, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: GithubUsers.PubSub},
-      # Start the Finch HTTP client for sending emails
-      {Finch, name: GithubUsers.Finch},
       # Start a worker by calling: GithubUsers.Worker.start_link(arg)
       # {GithubUsers.Worker, arg},
       # Start to serve requests, typically the last entry
-      GithubUsersWeb.Endpoint
+      GithubUsersWeb.Endpoint,
+      {Finch, name: MyFinch}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
