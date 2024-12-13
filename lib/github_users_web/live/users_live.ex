@@ -5,11 +5,16 @@ defmodule GithubUsersWeb.UsersLive do
   alias GithubUsers.GithubAPI
 
   @impl true
-  def mount(_params, session, socket) do
-    # get theme from localstorage - default to light
-    theme = session["theme"] || :light
+  def mount(_params, _session, socket) do
+    theme = get_connect_params(socket)["app-theme"] || :light
 
-    {:ok, assign(socket, query: "", userDetails: nil, error: nil, theme: theme)}
+    {:ok,
+     assign(socket,
+       query: "",
+       userDetails: nil,
+       error: nil,
+       theme: theme
+     )}
   end
 
   @impl true

@@ -16,16 +16,18 @@ defmodule GithubUsersWeb.CardComponent do
       <div class="flex flex-col items-start justify-center w-[80%] gap-10">
         <div class="flex justify-between items-start w-full">
           <p class="flex flex-col gap-3">
-            <span class="text-[26px] font-bold dark:text-[#FFFFFF]">{@userDetails["name"]}</span>
+            <span class="text-[26px] font-bold dark:text-white">{@userDetails["name"]}</span>
             <span class="text-[#0079FF]">@{@userDetails["login"]}</span>
           </p>
-          <p class="text-[#697C9A] text-[15px]">Joined {format_date(@userDetails["created_at"])}</p>
+          <p class="text-[#697C9A] text-[15px] dark:text-white">
+            Joined {format_date(@userDetails["created_at"])}
+          </p>
         </div>
-        <p class="text-[#4B6A9B]">{@userDetails["bio"]}</p>
+        <p class="text-[#4B6A9B] dark:text-white">{@userDetails["bio"]}</p>
         <div class="flex items-center justify-between w-full bg-[#F6F8FF] dark:bg-[#141D2F] rounded-[16px] p-6">
           <p class="flex flex-col items-center justify-between">
             <span class="text-[13px] text-[#4B6A9B] dark:text-[#FFFFFF]">Repos</span>
-            <span class="text-[22px] font-bold">
+            <span class="text-[22px] font-bold dark:text-[#FFFFFF]">
               <%= if @userDetails["public_repos"] == nil do %>
                 -
               <% else %>
@@ -35,7 +37,7 @@ defmodule GithubUsersWeb.CardComponent do
           </p>
           <p class="flex flex-col items-center justify-between">
             <span class="text-[13px] text-[#4B6A9B] dark:text-[#FFFFFF]">Followers</span>
-            <span class="text-[22px] font-bold">
+            <span class="text-[22px] font-bold dark:text-[#FFFFFF]">
               <%= if @userDetails["followers"] == nil do %>
                 -
               <% else %>
@@ -45,7 +47,7 @@ defmodule GithubUsersWeb.CardComponent do
           </p>
           <p class="flex flex-col items-center justify-between">
             <span class="text-[13px] text-[#4B6A9B] dark:text-[#FFFFFF]">Following</span>
-            <span class="text-[22px] font-bold">
+            <span class="text-[22px] font-bold dark:text-[#FFFFFF]">
               <%= if @userDetails["following"] == nil do %>
                 -
               <% else %>
