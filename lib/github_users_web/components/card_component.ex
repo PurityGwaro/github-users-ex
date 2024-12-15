@@ -20,7 +20,7 @@ defmodule GithubUsersWeb.CardComponent do
 
   def card(assigns) do
     ~H"""
-    <div class="flex flex-col lg:flex-row items-start justify-between rounded-[16px] bg-[#FEFEFE] dark:bg-[#1E2A47] md:px-16 lg:py-20 gap-10 py-10 w-full relative px-4">
+    <div class="flex flex-col lg:flex-row items-start justify-between rounded-[16px] bg-[#FEFEFE] dark:bg-[#1E2A47] md:px-16 lg:py-20 gap-10 py-10 w-full relative px-4 shadow-lg shadow-[#4660BB33] dark:shadow-none">
       <img
         src={@userDetails["avatar_url"]}
         alt={@userDetails["name"]}

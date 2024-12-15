@@ -37,19 +37,19 @@ defmodule GithubUsersWeb.UsersLive do
           <% end %>
         </button>
       </section>
-      <section class="relative">
+      <section class="relative mb-2">
         <.icon
           name="hero-magnifying-glass-solid"
           class="w-[24.06px] h-[24px] bg-[#0079FF] absolute top-5 md:top-7 lg:top-9 border left-2 md:left-6"
         />
-        <form phx-submit="search">
+        <form phx-submit="search" class="shadow-[#4660BB33] shadow-lg rounded-[15px] dark:shadow-none">
           <.input
             type="text"
             name="username"
             placeholder="Search Github username..."
             value={@query}
             phx-click="clear_error"
-            class="rounded-[15px] text-[#4B6A9B] md:text-[14px] text-[11px] lg:text-[18px] font-[400] leading-[15px] pl-8 md:pl-16 shadow-custom bg-[#FEFEFE] md:py-5 lg:py-7 py-4 focus:ring-0 focus:outline-none dark:text-[#FFFFFF] dark:bg-[#1E2A47] dark:placeholder-white dark:focus:bg-[#1E2A47]"
+            class="rounded-[15px] text-[#4B6A9B] md:text-[14px] text-[11px] lg:text-[18px] font-[400] leading-[15px] pl-8 md:pl-16 bg-[#FEFEFE] md:py-5 lg:py-7 py-4  dark:text-[#FFFFFF] dark:bg-[#1E2A47] dark:placeholder-white"
           />
 
           <.button
