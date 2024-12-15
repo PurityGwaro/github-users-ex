@@ -49,6 +49,7 @@ defmodule GithubUsersWeb.UsersLive do
             placeholder="Search Github username..."
             value={@query}
             phx-click="clear_error"
+            phx-change={@query === "" && "clear_result"}
             class="rounded-[15px] text-[#4B6A9B] md:text-[14px] text-[11px] lg:text-[18px] font-[400] leading-[15px] pl-8 md:pl-16 bg-[#FEFEFE] md:py-5 lg:py-7 py-4  dark:text-[#FFFFFF] dark:bg-[#1E2A47] dark:placeholder-white cursor-pointer"
           />
 
@@ -75,7 +76,11 @@ defmodule GithubUsersWeb.UsersLive do
   end
 
   def handle_event("clear_error", _, socket) do
-    {:noreply, assign(socket, error: "")}
+    {:noreply, assign(socket, error: nil)}
+  end
+
+  def handle_event("clear_result", _, socket) do
+    {:noreply, assign(socket, userDetails: nil)}
   end
 
   @impl true
@@ -89,7 +94,7 @@ defmodule GithubUsersWeb.UsersLive do
           {:noreply, assign(socket, error: "No results", userDetails: nil)}
       end
     else
-      {:noreply, assign(socket, error: "please enter a username")}
+      {:noreply, assign(socket, error: "please enter a username", userDetails: nil)}
     end
   end
 
