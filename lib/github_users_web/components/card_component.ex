@@ -13,7 +13,7 @@ defmodule GithubUsersWeb.CardComponent do
       "following" => 0,
       "location" => "Not Available",
       "twitter_username" => nil,
-      "blog" => "https://www.gitshdrtfyguhijokfdftgyhujikohdfcgvhbjnk",
+      "blog" => "https://www.github.com",
       "company" => "My company",
       "avatar_url" => "https://via.placeholder.com/117"
     }
@@ -47,7 +47,11 @@ defmodule GithubUsersWeb.CardComponent do
         <div class="w-[100%] grid md:grid-cols-2 gap-8 text-[15px]">
           <.info_component icon="hero-map-pin-solid" value={@userDetails["location"]} />
           <.info_component icon="hero-x-mark-solid" value={@userDetails["twitter_username"]} />
-          <.info_component icon="hero-link-solid" value={@userDetails["blog"]} />
+          <.info_component
+            icon="hero-link-solid"
+            value={@userDetails["blog"]}
+            class="cursor-pointer hover:underline"
+          />
           <.info_component icon="hero-building-office-2-solid" value={@userDetails["company"]} />
         </div>
       </div>
@@ -71,6 +75,7 @@ defmodule GithubUsersWeb.CardComponent do
 
   attr :value, :any, required: true
   attr :icon, :string, required: true
+  attr :class, :any, required: false, default: ""
 
   defp info_component(assigns) do
     ~H"""
@@ -78,11 +83,20 @@ defmodule GithubUsersWeb.CardComponent do
       <span>
         <.icon name={@icon} class="w-[20px] h-[20px] bg-[#4B6A9B]" />
       </span>
-      <span class="text-[#4B6A9B] dark:text-[#FFFFFF]">
+      <span class={[
+        "text-[#4B6A9B] dark:text-[#FFFFFF]",
+        @class
+      ]}>
         <%= if @value in [nil, ""] do %>
           Not Available
         <% else %>
-          {@value}
+          <%= if String.contains?(@value, "http") do %>
+            <a href={@value} target="_blank" class="hover:underline">
+              {@value}
+            </a>
+          <% else %>
+            {@value}
+          <% end %>
         <% end %>
       </span>
     </p>
