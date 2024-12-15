@@ -59,7 +59,7 @@ defmodule GithubUsersWeb.UsersLive do
             Search
           </.button>
           <%= if @error do %>
-            <p class="text-red-500 absolute lg:top-9 lg:right-40 md:top-7 md:right-28 text-[11px] lg:text-[16px]">
+            <p class="text-red-500 absolute lg:top-9 lg:right-40 md:top-7 md:right-28 md:text-[12px] text-[11px] lg:text-[16px] ml-10 md:ml-0">
               {@error}
             </p>
           <% end %>
@@ -88,8 +88,8 @@ defmodule GithubUsersWeb.UsersLive do
         {:ok, results} ->
           {:noreply, assign(socket, userDetails: results, error: nil)}
 
-        {:error, error} ->
-          {:noreply, assign(socket, error: "Failed to fetch user: #{error}", userDetails: nil)}
+        {:error, _error} ->
+          {:noreply, assign(socket, error: "No results", userDetails: nil)}
       end
     else
       {:noreply, assign(socket, error: "please enter a username")}
