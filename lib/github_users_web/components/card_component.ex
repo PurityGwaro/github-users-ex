@@ -13,8 +13,8 @@ defmodule GithubUsersWeb.CardComponent do
       "following" => 0,
       "location" => "Not Available",
       "twitter_username" => nil,
-      "blog" => "https://www.gitsh",
-      "company" => nil,
+      "blog" => "https://www.gitshdrtfyguhijokfdftgyhujikohdfcgvhbjnk",
+      "company" => "My company",
       "avatar_url" => "https://via.placeholder.com/117"
     }
 
@@ -40,81 +40,52 @@ defmodule GithubUsersWeb.CardComponent do
         </div>
         <p class="text-[#4B6A9B] dark:text-white">{@userDetails["bio"]}</p>
         <div class="flex items-center justify-between w-full bg-[#F6F8FF] dark:bg-[#141D2F] rounded-[16px] p-6">
-          <p class="flex flex-col items-center justify-between">
-            <span class="text-[13px] text-[#4B6A9B] dark:text-[#FFFFFF]">Repos</span>
-            <span class="text-[22px] font-bold dark:text-[#FFFFFF]">
-              <%= if @userDetails["public_repos"] == nil do %>
-                -
-              <% else %>
-                {@userDetails["public_repos"]}
-              <% end %>
-            </span>
-          </p>
-          <p class="flex flex-col items-center justify-between">
-            <span class="text-[13px] text-[#4B6A9B] dark:text-[#FFFFFF]">Followers</span>
-            <span class="text-[22px] font-bold dark:text-[#FFFFFF]">
-              <%= if @userDetails["followers"] == nil do %>
-                -
-              <% else %>
-                {@userDetails["followers"]}
-              <% end %>
-            </span>
-          </p>
-          <p class="flex flex-col items-center justify-between">
-            <span class="text-[13px] text-[#4B6A9B] dark:text-[#FFFFFF]">Following</span>
-            <span class="text-[22px] font-bold dark:text-[#FFFFFF]">
-              <%= if @userDetails["following"] == nil do %>
-                -
-              <% else %>
-                {@userDetails["following"]}
-              <% end %>
-            </span>
-          </p>
+          <.record_component title="Repos" value={@userDetails["public_repos"]} />
+          <.record_component title="Followers" value={@userDetails["followers"]} />
+          <.record_component title="Following" value={@userDetails["following"]} />
         </div>
-        <div class="w-full grid grid-cols-2 gap-8 text-[15px] border">
-          <p class="flex items-start justify-start gap-4">
-            <.icon name="hero-map-pin-solid" class="w-[20px] h-[20px] bg-[#4B6A9B]" />
-            <span class="text-[#4B6A9B] dark:text-[#FFFFFF]">
-              <%= if @userDetails["location"] == nil do %>
-                Not Available
-              <% else %>
-                {@userDetails["location"]}
-              <% end %>
-            </span>
-          </p>
-          <p class="flex items-start justify-start gap-4">
-            <.icon name="hero-link-solid" class="w-[20px] h-[20px] bg-[#4B6A9B]" />
-            <span class="text-[#4B6A9B] dark:text-[#FFFFFF]">
-              <%= if @userDetails["twitter_username"] == nil do %>
-                Not Available
-              <% else %>
-                {@userDetails["twitter_username"]}
-              <% end %>
-            </span>
-          </p>
-          <p class="flex items-start justify-start gap-4">
-            <.icon name="hero-link-solid" class="w-[20px] h-[20px] bg-[#697C9A]" />
-            <span class="text-[#4B6A9B] dark:text-[#FFFFFF]">
-              <%= if @userDetails["blog"] in [nil, ""] do %>
-                Not Available
-              <% else %>
-                {@userDetails["blog"]}
-              <% end %>
-            </span>
-          </p>
-          <p class="flex items-start justify-start gap-4">
-            <.icon name="hero-building-office-2-solid" class="w-[20px] h-[20px] bg-[#4B6A9B]" />
-            <span class="text-[#4B6A9B] dark:text-[#FFFFFF]">
-              <%= if @userDetails["company"] == nil do %>
-                Not Available
-              <% else %>
-                {@userDetails["company"]}
-              <% end %>
-            </span>
-          </p>
+        <div class="w-[100%] grid md:grid-cols-2 gap-8 text-[15px]">
+          <.info_component icon="hero-map-pin-solid" value={@userDetails["location"]} />
+          <.info_component icon="hero-x-mark-solid" value={@userDetails["twitter_username"]} />
+          <.info_component icon="hero-link-solid" value={@userDetails["blog"]} />
+          <.info_component icon="hero-building-office-2-solid" value={@userDetails["company"]} />
         </div>
       </div>
     </div>
+    """
+  end
+
+  attr :value, :integer, required: true
+  attr :title, :string, required: true
+
+  defp record_component(assigns) do
+    ~H"""
+    <p class="flex flex-col items-center justify-between">
+      <span class="text-[13px] text-[#4B6A9B] dark:text-[#FFFFFF]">{@title}</span>
+      <span class="text-[22px] font-bold dark:text-[#FFFFFF]">
+        {@value}
+      </span>
+    </p>
+    """
+  end
+
+  attr :value, :any, required: true
+  attr :icon, :string, required: true
+
+  defp info_component(assigns) do
+    ~H"""
+    <p class="flex items-start justify-start gap-4 w-full break-words overflow-hidden">
+      <span>
+        <.icon name={@icon} class="w-[20px] h-[20px] bg-[#4B6A9B]" />
+      </span>
+      <span class="text-[#4B6A9B] dark:text-[#FFFFFF]">
+        <%= if @value in [nil, ""] do %>
+          Not Available
+        <% else %>
+          {@value}
+        <% end %>
+      </span>
+    </p>
     """
   end
 
