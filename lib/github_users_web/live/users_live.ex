@@ -48,7 +48,8 @@ defmodule GithubUsersWeb.UsersLive do
             name="username"
             placeholder="Search Github username..."
             value={@query}
-            class="rounded-[15px] text-[#4B6A9B] md:text-[16px] text-[11px] lg:text-[18px] font-[400] leading-[15px] pl-8 md:pl-16 shadow-custom bg-[#FEFEFE] md:py-5 lg:py-7 py-4 focus:ring-0 focus:outline-none dark:text-[#FFFFFF] dark:bg-[#1E2A47] dark:placeholder-white dark:focus:bg-[#1E2A47]"
+            phx-click="clear_error"
+            class="rounded-[15px] text-[#4B6A9B] md:text-[14px] text-[11px] lg:text-[18px] font-[400] leading-[15px] pl-8 md:pl-16 shadow-custom bg-[#FEFEFE] md:py-5 lg:py-7 py-4 focus:ring-0 focus:outline-none dark:text-[#FFFFFF] dark:bg-[#1E2A47] dark:placeholder-white dark:focus:bg-[#1E2A47]"
           />
 
           <.button
@@ -57,11 +58,13 @@ defmodule GithubUsersWeb.UsersLive do
           >
             Search
           </.button>
+          <%= if @error do %>
+            <p class="text-red-500 absolute lg:top-9 lg:right-40 md:top-7 md:right-28 text-[11px] lg:text-[16px]">
+              {@error}
+            </p>
+          <% end %>
         </form>
       </section>
-      <%= if @error do %>
-        <p class="text-red-500">{@error}</p>
-      <% end %>
       <%= if @userDetails do %>
         <section>
           <.card userDetails={@userDetails} />
@@ -74,14 +77,22 @@ defmodule GithubUsersWeb.UsersLive do
     """
   end
 
+  def handle_event("clear_error", _, socket) do
+    {:noreply, assign(socket, error: "")}
+  end
+
   @impl true
   def handle_event("search", %{"username" => username}, socket) do
-    case GithubAPI.search_user(username) do
-      {:ok, results} ->
-        {:noreply, assign(socket, userDetails: results, error: nil)}
+    if username !== "" do
+      case GithubAPI.search_user(username) do
+        {:ok, results} ->
+          {:noreply, assign(socket, userDetails: results, error: nil)}
 
-      {:error, error} ->
-        {:noreply, assign(socket, error: "Failed to fetch user: #{error}", userDetails: nil)}
+        {:error, error} ->
+          {:noreply, assign(socket, error: "Failed to fetch user: #{error}", userDetails: nil)}
+      end
+    else
+      {:noreply, assign(socket, error: "please enter a username")}
     end
   end
 
