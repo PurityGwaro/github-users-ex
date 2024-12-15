@@ -70,9 +70,6 @@ defmodule GithubUsersWeb.UsersLive do
           <.card userDetails={@userDetails} />
         </section>
       <% end %>
-      <section>
-        <.card />
-      </section>
     </div>
     """
   end

@@ -1,22 +1,7 @@
 defmodule GithubUsersWeb.CardComponent do
   use GithubUsersWeb, :live_component
 
-  attr :userDetails, :map,
-    required: false,
-    default: %{
-      "name" => "Default User",
-      "login" => "defaultuser",
-      "created_at" => "2023-01-01T00:00:00Z",
-      "bio" => "This is a default user bio.",
-      "public_repos" => 0,
-      "followers" => 0,
-      "following" => 0,
-      "location" => "Not Available",
-      "twitter_username" => nil,
-      "blog" => "https://www.github.com",
-      "company" => "My company",
-      "avatar_url" => "https://via.placeholder.com/117"
-    }
+  attr :userDetails, :map, required: true
 
   def card(assigns) do
     ~H"""
@@ -50,7 +35,7 @@ defmodule GithubUsersWeb.CardComponent do
           <.info_component
             icon="hero-link-solid"
             value={@userDetails["blog"]}
-            class="cursor-pointer hover:underline"
+            class={@userDetails["blog"] !== "" && "cursor-pointer hover:underline"}
           />
           <.info_component icon="hero-building-office-2-solid" value={@userDetails["company"]} />
         </div>
