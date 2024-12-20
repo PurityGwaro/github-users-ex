@@ -25,17 +25,17 @@ defmodule GithubUsersWeb.UsersLive do
           devfinder
         </h1>
         <button
-          class="flex justify-between items-center gap-4 dark:text-red-700"
+          class="flex justify-between items-center gap-4"
           phx-click="toggle_theme"
           title="Toogle Theme"
           id="toggle_theme_btn"
         >
           <%= if @theme == :light do %>
-            <p class="text-[13px] text-[#697C9A] dark:text-[#FFFFFF]">DARK</p>
+            <p class="text-[13px] text-[#697C9A] dark:text-[#FFFFFF] hover:text-[#000000]">DARK</p>
             <.icon
               id="dark_theme_icon"
               name="hero-moon-solid"
-              class="w-[20px] h-[20px] bg-[#697C9A] dark:bg-[#FFFFFF]"
+              class="w-[20px] h-[20px] bg-[#697C9A] dark:bg-[#FFFFFF] hover:bg-[#000000]"
             />
           <% else %>
             <p class="text-[13px] text-[#697C9A] dark:text-[#FFFFFF]">LIGHT</p>
