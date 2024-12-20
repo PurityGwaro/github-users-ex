@@ -1,4 +1,5 @@
 defmodule GithubUsers.GithubAPI do
+  @behaviour GithubUsers.GithubAPIBehaviour
   require Logger
 
   def search_user(username) do

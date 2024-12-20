@@ -18,6 +18,8 @@ const Theme = {
 
     if (theme === "dark") {
       htmlElement.classList.add("dark");
+    } else {
+      htmlElement.classList.add("light");
     }
 
     localStorage.setItem("app-theme", theme);

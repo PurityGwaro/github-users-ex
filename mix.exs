@@ -55,7 +55,8 @@ defmodule GithubUsers.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:finch, "~> 0.19.0"}
+      {:finch, "~> 0.19.0"},
+      {:mox, "~> 1.2.0", only: :test}
     ]
   end
 
